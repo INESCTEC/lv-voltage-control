@@ -1,0 +1,38 @@
+# Ignore text and JSON files everywhere
+*.txt
+*.json
+
+# Ignore folders named 'txt' or 'json'
+txt/
+json/
+
+# Ignore specific script
+generator1.py
+
+# Ignore contents of database/ and input/, but keep the folders
+database/*
+input/*
+
+# --- Standard Python ignores ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.sqlite3
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE/project files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
