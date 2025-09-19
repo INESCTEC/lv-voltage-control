@@ -165,8 +165,6 @@ This is fast and interpretable, though not globally optimal.
 
 ## 📜 License
 
-MIT License – Free to use, modify, and distribute.
-
 ---
 
 ## 🙌 Acknowledgements
