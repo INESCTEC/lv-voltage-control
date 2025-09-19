@@ -1,4 +1,4 @@
-# ⚡ VoltTune: Greedy Voltage Correction Using Flexibility Allocation
+# ⚡ VoltTune: Voltage Correction Using Flexibility Allocation
 
 VoltTune is a Python-based tool designed to identify and correct voltage violations in low-voltage or distribution electrical networks using a greedy optimization algorithm. It uses a sensitivity matrix estimated from historical measurements and leverages available flexibility (load reduction or injection) to bring all nodal voltages within a specified operating range.
 

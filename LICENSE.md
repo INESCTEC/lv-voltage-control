@@ -6,7 +6,7 @@ ou tenha expresso por qualquer outro meio a sua vontade de licenciar a obra nos 
  
 1.Definições Copyright (C) 2025, INESC TEC 
 
-VoltTune: Greedy Voltage Correction Using Flexibility Allocation
+VoltTune Voltage Correction Using Flexibility Allocation
 
 This software is authored by:
 José Pedro Ribeiro de Sousa
