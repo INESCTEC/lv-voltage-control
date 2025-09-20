@@ -19,7 +19,7 @@ VoltTune is a Python-based tool designed to identify and correct voltage violati
 ## Workflow
 
 <p align="center">
-  <img src="docs/flowchart.png" alt="Voltune Flowchart" width="200"/>
+  <img src="docs/flowchart.png" alt="Voltune Flowchart" width="600"/>
 </p>
 
 ---
