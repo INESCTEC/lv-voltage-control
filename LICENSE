@@ -18,7 +18,11 @@ You should have received a copy of the European Union Public License v1.2 along 
 
 This program makes use and is distributed with the following libraries:
 * numpy: https://github.com/numpy/numpy
-* os: https://github.com/numpy/numpy
+* fastapi: https://github.com/tiangolo/fastapi
+* uvicorn: https://github.com/encode/uvicorn
+* python-multipart: https://github.com/andrew-d/python-multipart
+* pydantic: https://github.com/pydantic/pydantic
+* os (standard library): https://github.com/python/cpython/tree/main/Lib/os
 
 A commercial license is also available for use in industrial projects and collaborations that do not wish to use the EUPL v1.2 license. 
 To obtain the commercial license please contact the INESC TEC Technology Licensing Office (TLO) at info.sal@inesctec.pt, or 

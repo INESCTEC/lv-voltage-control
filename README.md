@@ -1,17 +1,18 @@
 # VoltTune: Voltage Correction Using Flexibility Allocation
 
-VoltTune is a Python-based tool designed to identify and correct voltage violations in low-voltage or distribution electrical networks using a optimization algorithm. It uses a sensitivity matrix estimated from historical measurements and leverages available flexibility (load reduction or injection) to bring all nodal voltages within a specified operating range.
+VoltTune is a Python-based tool designed to identify and correct voltage violations in low-voltage or distribution electrical networks using an optimization algorithm. It uses a sensitivity matrix estimated from historical measurements and leverages available flexibility (load reduction or injection) to bring all nodal voltages within a specified operating range.
 
 ---
 
 ## Features
 
--  Learns network voltage sensitivities from historical data  
--  Detects voltage violations based on user-defined voltage limits  
--  Applies voltage correction using available power flexibility  
--  Supports real-world voltage/power data formats  
--  Fully configurable via environment variables  
--  Simple, modular, and readable code (PEP8-compliant)  
+- Learns network voltage sensitivities from historical data  
+- Detects voltage violations based on user-defined voltage limits  
+- Applies voltage correction using available power flexibility  
+- Supports real-world voltage/power data formats  
+- Run as a script or via REST API  
+- Supports file upload and query parameters for voltage limits  
+- Simple, modular, and readable code (PEP8-compliant)  
 
 ---
 
@@ -20,6 +21,7 @@ VoltTune is a Python-based tool designed to identify and correct voltage violati
 <p align="center">
   <img src="docs/flowchart.png" alt="Voltune Flowchart" width="200"/>
 </p>
+
 ---
 
 ## File Structure
@@ -27,9 +29,10 @@ VoltTune is a Python-based tool designed to identify and correct voltage violati
 ```
 VoltTune/
 ├── VoltTune.py               # Main script
+├── api.py                    # REST API definition (FastAPI)
 ├── README.md                 # Documentation
 ├── database/
-│   └── historic_31.txt       # Example voltage/power history file
+│   └── historic.txt       # Example voltage/power history file
 └── input/
     └── input.txt             # Example flexibility input file
 ```
@@ -38,7 +41,7 @@ VoltTune/
 
 ## Input File Formats
 
-### 1. `historic_31.txt` (Voltage & Power Time Series)
+### 1. `historic.txt` (Voltage & Power Time Series)
 - Tab-separated values  
 - Skips first 2 header lines  
 - Alternating rows: `Voltage`, `Power`, `Voltage`, `Power`, ...  
@@ -68,7 +71,7 @@ Node_1_P:  3.1      3.2      3.3     ...
 
 ---
 
-##  How It Works
+## How It Works
 
 1. **Data Loading** — Reads voltage and power history and current flexibility  
 2. **Sensitivity Estimation** — Computes sensitivity matrix `S` using least squares  
@@ -77,16 +80,21 @@ Node_1_P:  3.1      3.2      3.3     ...
 
 ---
 
-##  Requirements
+## Requirements
 
 - Python 3.7+  
 - NumPy  
+- FastAPI  
+- Uvicorn  
+- python-multipart
 
 Install with pip:
 
 ```
-pip install numpy
+pip install numpy fastapi uvicorn python-multipart
 ```
+
+> `python-multipart` is required for file upload support in FastAPI.
 
 ---
 
@@ -110,7 +118,39 @@ export INPUT_FILE="input/input.txt"
 python VoltTune.py
 ```
 
->  If variables are not set, the script will exit with a warning.
+> For REST API usage, see [Using the REST API](#using-the-rest-api).
+
+---
+
+## Using the REST API
+
+VoltTune includes a REST API implemented with FastAPI, allowing you to compute voltage corrections via HTTP.
+
+### Run the API locally
+
+```
+uvicorn api:app --reload --host 127.0.0.1 --port 5000
+```
+
+### Access the API docs
+
+- Swagger UI: http://127.0.0.1:5000/docs  
+- ReDoc: http://127.0.0.1:5000/redoc
+
+### Endpoint
+
+`POST /voltage_correction_nodes`
+
+**Inputs:**
+- `historic` (file): Historical voltages and powers (`.txt`)
+- `input_file` (file): Current voltages, flexibility values (`.txt`)
+- `Vmin` (query): Minimum acceptable voltage (default: 207)
+- `Vmax` (query): Maximum acceptable voltage (default: 250)
+
+**Returns:**
+- Applied corrections (`dp_applied`)
+- Corrected voltages (`V_corrected`)
+- Number of remaining violations (`violations`)
 
 ---
 
@@ -162,7 +202,6 @@ VoltTune uses a **heuristic**:
 
 This is fast and interpretable, though not globally optimal.
 
-
 ---
 
 ## Acknowledgements
@@ -170,6 +209,8 @@ This is fast and interpretable, though not globally optimal.
 Developed at INESC TEC as part of research into voltage control and DER integration.
 
 ---
+
 ## Connect with us
-- José P. Sousa (jose.p.sousa@inesctec.pt)
+
+- José P. Sousa (jose.p.sousa@inesctec.pt)  
 - Gil Sampaio (gil.s.sampaio@inesctec.pt)
